@@ -8,7 +8,7 @@ var connectionString = builder.Configuration.GetConnectionString("ProjetoMVCCont
 builder.Services.AddDbContext<ProjetoMVCContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<UsuarioModel>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<UsuarioModel>(options => options.SignIn.RequireConfirmedAccount = false) //Alterado para false para não precisar confirmar o email
     .AddEntityFrameworkStores<ProjetoMVCContext>();
 
 // Add services to the container.
@@ -35,5 +35,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
 
 app.Run();
