@@ -75,6 +75,12 @@ namespace ProjetoMVC.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            [Required] //Name e Telefone são os atributos copiados lá do Usuário Model
+            [Display (Name ="Nome")]
+            public string Nome { get; set; }
+            [Required]
+            [Display(Name = "Telefone")]
+            public string Telefone { get; set; }
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -114,6 +120,8 @@ namespace ProjetoMVC.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                user.Nome = Input.Nome; //Atributos do Usuário Model passados para salvar no banco de dados
+                user.Telefone = Input.Telefone;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
